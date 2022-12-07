@@ -32,4 +32,16 @@ public class UserController {
         userService.addUser(user);
     }
 
+    @PutMapping("/users/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void updateUser(@PathVariable String id, @RequestBody User user) {
+        userService.updateUser(id, user);
+    }
+
+    @DeleteMapping("/users/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUser(@PathVariable String id) {
+        userService.deleteUser(id);
+    }
+
 }
