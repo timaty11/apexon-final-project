@@ -2,29 +2,34 @@ package com.apexonfinalproject.controllers;
 
 import com.apexonfinalproject.model.User;
 import com.apexonfinalproject.services.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@AllArgsConstructor
 public class UserController {
 
     private UserService userService;
 
     @GetMapping("/users")
     @ResponseStatus(HttpStatus.OK)
-    public User getAllUsers() {
-        return User.builder()
-                .id("1")
-                .login("login1")
-                .password("pass1")
-                .email("email1")
-                .fullName("name1")
-                .phoneNumber("phone number1")
-                .country("country1")
-                .city("city1")
-                .build();
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/users/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public User getUserData(@PathVariable String id) {
+        return userService.getUserById(id);
+    }
+
+    @PostMapping("/users")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createUser(@RequestBody User user) {
+        userService.addUser(user);
     }
 
 }
