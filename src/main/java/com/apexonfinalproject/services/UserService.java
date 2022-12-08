@@ -36,7 +36,6 @@ public class UserService {
         log.info("Get user data with id: '{}'", id);
         return userRepository.findById(id).orElseThrow(() -> {
             log.error(String.format(ERROR_USER_NOT_FOUND_TEMPLATE, id));
-//            throw new RuntimeException(String.format(ERROR_USER_NOT_FOUND_TEMPLATE, id));
             throw new UserNotFoundException(String.format(ERROR_USER_NOT_FOUND_TEMPLATE, id));
         });
     }
