@@ -1,5 +1,6 @@
 package com.apexonfinalproject.services;
 
+import com.apexonfinalproject.exceptions.UserNotFoundException;
 import com.apexonfinalproject.model.User;
 import com.apexonfinalproject.repositories.UserRepository;
 import lombok.AllArgsConstructor;
@@ -35,7 +36,8 @@ public class UserService {
         log.info("Get user data with id: '{}'", id);
         return userRepository.findById(id).orElseThrow(() -> {
             log.error(String.format(ERROR_USER_NOT_FOUND_TEMPLATE, id));
-            throw new RuntimeException(String.format(ERROR_USER_NOT_FOUND_TEMPLATE, id));
+//            throw new RuntimeException(String.format(ERROR_USER_NOT_FOUND_TEMPLATE, id));
+            throw new UserNotFoundException(String.format(ERROR_USER_NOT_FOUND_TEMPLATE, id));
         });
     }
 
@@ -43,7 +45,7 @@ public class UserService {
         log.info("Update user data with id: '{}'", id);
         if (!userRepository.existsById(id)) {
             log.error(String.format(ERROR_USER_NOT_FOUND_TEMPLATE, id));
-            throw new RuntimeException(String.format(ERROR_USER_NOT_FOUND_TEMPLATE, id));
+            throw new UserNotFoundException(String.format(ERROR_USER_NOT_FOUND_TEMPLATE, id));
         }
 
         User prevUserData = getUserById(id);
@@ -64,7 +66,7 @@ public class UserService {
         log.info("Update user data with id: '{}'", id);
         if (!userRepository.existsById(id)) {
             log.error(String.format(ERROR_USER_NOT_FOUND_TEMPLATE, id));
-            throw new RuntimeException(String.format(ERROR_USER_NOT_FOUND_TEMPLATE, id));
+            throw new UserNotFoundException(String.format(ERROR_USER_NOT_FOUND_TEMPLATE, id));
         }
         userRepository.deleteById(id);
     }
