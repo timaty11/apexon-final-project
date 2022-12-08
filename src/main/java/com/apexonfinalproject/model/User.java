@@ -22,16 +22,16 @@ public class User {
     @JsonIgnore
     private String id;
 
-    @Column(name = "login")
+    @Column(name = "login", nullable = false, unique = true)
     private String login;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "full_name")
+    @Column(name = "full_name", nullable = false)
     private String fullName;
 
     @Column(name = "phone_number")
@@ -42,5 +42,9 @@ public class User {
 
     @Column(name = "city")
     private String city;
+
+    @JsonIgnore
+    @Column(name = "activated")
+    private Boolean activated = false;
 
 }
