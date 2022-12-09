@@ -3,9 +3,7 @@ package com.apexonfinalproject.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -32,7 +30,11 @@ public class WebAppSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery("SELECT login, password, activated from users WHERE login=?")
-                .authoritiesByUsernameQuery("SELECT login, email from users WHERE login=?")
+                .authoritiesByUsernameQuery("SELECT users.login as username, roles.role_name as role " +
+                        "FROM users " +
+                        "INNER JOIN user_roles ON users.id = user_roles.user_id " +
+                        "INNER JOIN roles ON user_roles.role_id = roles.id " +
+                        "WHERE users.login = ?  ")
                 .passwordEncoder(passwordEncoder());
     }
 
@@ -41,7 +43,7 @@ public class WebAppSecurity extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/home").permitAll()
                 .antMatchers("/auth/authorized").authenticated()
-                .antMatchers("/admin").hasAnyAuthority("admin@admin")
+                .antMatchers("/admin").hasAnyAuthority("ADMIN")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()

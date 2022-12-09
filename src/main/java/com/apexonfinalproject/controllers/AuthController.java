@@ -1,6 +1,8 @@
 package com.apexonfinalproject.controllers;
 
+import com.apexonfinalproject.model.Role;
 import com.apexonfinalproject.model.User;
+import com.apexonfinalproject.services.RoleService;
 import com.apexonfinalproject.services.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
+import java.util.List;
+
 @Slf4j
 @Controller
 @AllArgsConstructor
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private UserService userService;
+    private RoleService roleService;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -26,8 +32,9 @@ public class AuthController {
     public String userRegisterForm(Model model) {
         User newUser = new User();
         newUser.setActivated(true);
-
+        List<Role> roles = roleService.getAllRoles();
         model.addAttribute("user", newUser);
+        model.addAttribute("roles", roles);
         return "registration";
     }
 
@@ -36,6 +43,7 @@ public class AuthController {
     public String userRegister(User user) {
         user.setPassword(encoder.encode(user.getPassword()));
         user.setActivated(true);
+
         log.info(user.toString());
         userService.addUser(user);
         return "redirect:/login";

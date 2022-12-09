@@ -2,11 +2,13 @@ package com.apexonfinalproject.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
+
 import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,29 +24,41 @@ public class User {
     @JsonIgnore
     private String id;
 
-    @Column(name = "login", nullable = false, unique = true)
+    @Column(length = 255, name = "login", nullable = false, unique = true)
     private String login;
 
-    @Column(name = "password", nullable = false)
+    @Column(length = 255, name = "password", nullable = false)
     private String password;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(length = 255, name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "full_name", nullable = false)
+    @Column(length = 255, name = "full_name", nullable = false)
     private String fullName;
 
-    @Column(name = "phone_number")
+    @Column(length = 255, name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "country")
+    @Column(length = 255, name = "country")
     private String country;
 
-    @Column(name = "city")
+    @Column(length = 255, name = "city")
     private String city;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
+    private Set<Role> roles = new HashSet<Role>();
 
     @Column(name = "activated")
     @Builder.Default
     private Boolean activated = false;
+
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
 
 }

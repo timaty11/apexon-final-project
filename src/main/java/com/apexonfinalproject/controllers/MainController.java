@@ -16,4 +16,9 @@ public class MainController {
         return "accessDenied";
     }
 
+    @GetMapping("/admin")
+    public String getAdminPage() {
+        return "admin";
+    }
+
 }
