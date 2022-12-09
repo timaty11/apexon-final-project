@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
     <title>Control Panel</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
+    <script type="text/javascript" href=="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" href=="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 <body>
 
     <div>
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-            <a class="navbar-brand" th:href="@{/}">
-                <img th:src="@{/images/ShopmeAdminSmall.png}" />
+            <a class="navbar-brand" th:href="@{/home}">
+                <img th:src="@{/images/logo.jpg}" height="50px"/>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
                 <span class="navbar-toggler-icon"></span>
@@ -58,6 +68,42 @@
     </div>
     <div>
         <h1>Control Panel</h1>
+        <table class="table table-responsive-xl table-bordered table-striped table-hover">
+            <thead class="thead-dark">
+            <tr>
+                <th>User ID</th>
+                <th>Login</th>
+                <th>Email</th>
+                <th>Full Name</th>
+                <th>Phone number</th>
+                <th>Country</th>
+                <th>City</th>
+                <th>Roles</th>
+                <th>Active</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${listUsers}">
+                <td>[[${user.id}]]</td>
+                <td>[[${user.login}]]</td>
+                <td>[[${user.email}]]</td>
+                <td>[[${user.fullName}]]</td>
+                <td>[[${user.phoneNumber}]]</td>
+                <td>[[${user.phoneNumber}]]</td>
+                <td>[[${user.city}]]</td>
+                <td>[[${user.roles}]]</td>
+                <td>
+                    <a th:if="${user.activated == true}" class="fa-check-circle fa-2x icon-green"></a>
+                    <a th:if="${user.activated == false}" class="fa-check-circle fa-2x icon-red"></a>
+                </td>
+                <td>
+                    <a class="fas fa-edit fa-2x icon-green" th:href="@{'/users/edit/' + ${user.id}}"></a>
+                    <a class="fas fa-trash fa-2x icon-red" th:href="@{'/users/delete/' + ${user.id}}"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
 </body>

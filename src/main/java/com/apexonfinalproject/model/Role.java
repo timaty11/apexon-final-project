@@ -11,7 +11,6 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-@ToString
 @Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
@@ -28,4 +27,8 @@ public class Role {
     @Column(length = 255, name = "role_description")
     private String roleDescription;
 
+    @Override
+    public String toString() {
+        return roleName + ": " + roleDescription;
+    }
 }
