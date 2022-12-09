@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
 
 @Slf4j
@@ -32,10 +31,10 @@ public class AuthController {
     public String userRegisterForm(Model model) {
         User newUser = new User();
         newUser.setActivated(true);
-        List<Role> roles = roleService.getAllRoles();
+//        List<Role> roles = roleService.getAllRoles();
         model.addAttribute("user", newUser);
-        model.addAttribute("roles", roles);
-        return "registration";
+//        model.addAttribute("roles", roles);
+        return "userForm";
     }
 
     @PostMapping("/register")

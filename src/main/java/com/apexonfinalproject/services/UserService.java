@@ -57,6 +57,7 @@ public class UserService {
                 .phoneNumber(newUserData.getPhoneNumber() == null ? prevUserData.getPhoneNumber() : newUserData.getPhoneNumber())
                 .country(newUserData.getCountry() == null ? prevUserData.getCountry() : newUserData.getCountry())
                 .city(newUserData.getCity() == null ? prevUserData.getCity() : newUserData.getCity())
+                .roles(newUserData.getRoles() == null ? prevUserData.getRoles() : newUserData.getRoles())
                 .build()
         );
     }
