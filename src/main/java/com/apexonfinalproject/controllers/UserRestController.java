@@ -10,35 +10,45 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-public class UserController {
+@RequestMapping("/api/users")
+public class UserRestController {
 
     private UserService userService;
 
-    @GetMapping("/users")
+    @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public User getUserData(@PathVariable String id) {
         return userService.getUserById(id);
     }
 
-    @PostMapping("/users")
+    @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createUser(@RequestBody User user) {
+    public String createUser(@RequestBody User user) {
         userService.addUser(user);
+        return "created";
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/active/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void updateUser(@PathVariable String id, @RequestBody User user) {
-        userService.updateUser(id, user);
+    public String activateUser(@PathVariable String id) {
+        userService.activateUser(id);
+        return "activated";
     }
 
-    @DeleteMapping("/users/{id}")
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public String updateUser(@PathVariable String id, @RequestBody User user) {
+        userService.updateUser(id, user);
+        return "activated";
+    }
+
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
