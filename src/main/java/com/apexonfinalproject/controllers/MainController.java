@@ -21,4 +21,9 @@ public class MainController {
         return "admin";
     }
 
+    @GetMapping("/admin/control-panel")
+    public String getControlPanelPage() {
+        return "controlPanel";
+    }
+
 }

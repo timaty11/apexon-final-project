@@ -44,6 +44,7 @@ public class WebAppSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home").permitAll()
                 .antMatchers("/auth/authorized").authenticated()
                 .antMatchers("/admin").hasAnyAuthority("ADMIN")
+                .antMatchers("/admin/control-panel").hasAnyAuthority("ADMIN", "MANAGER")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
