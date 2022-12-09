@@ -2,10 +2,10 @@ package com.apexonfinalproject.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.*;
 
 @Getter
@@ -43,8 +43,8 @@ public class User {
     @Column(name = "city")
     private String city;
 
-    @JsonIgnore
     @Column(name = "activated")
+    @Builder.Default
     private Boolean activated = false;
 
 }

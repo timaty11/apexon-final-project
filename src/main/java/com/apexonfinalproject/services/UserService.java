@@ -36,7 +36,7 @@ public class UserService {
         log.info("Get user data with id: '{}'", id);
         return userRepository.findById(id).orElseThrow(() -> {
             log.error(String.format(ERROR_USER_NOT_FOUND_TEMPLATE, id));
-            throw new UserNotFoundException(String.format(ERROR_USER_NOT_FOUND_TEMPLATE, id));
+            return new UserNotFoundException(String.format(ERROR_USER_NOT_FOUND_TEMPLATE, id));
         });
     }
 
@@ -59,6 +59,18 @@ public class UserService {
                 .city(newUserData.getCity() == null ? prevUserData.getCity() : newUserData.getCity())
                 .build()
         );
+    }
+
+    public void activateUser(String id) {
+        log.info("Activate user with id: '{}'", id);
+        if (!userRepository.existsById(id)) {
+            log.error(String.format(ERROR_USER_NOT_FOUND_TEMPLATE, id));
+            throw new UserNotFoundException(String.format(ERROR_USER_NOT_FOUND_TEMPLATE, id));
+        }
+
+        User userData = getUserById(id);
+        userData.setActivated(true);
+        userRepository.save(userData);
     }
 
     public void deleteUser(String id) {

@@ -3,17 +3,24 @@ package com.apexonfinalproject.controllers;
 import com.apexonfinalproject.model.User;
 import com.apexonfinalproject.services.UserService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Controller
 @AllArgsConstructor
 @RequestMapping("/auth")
 public class AuthController {
 
     private UserService userService;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     @GetMapping("/register")
     public String userRegisterForm(Model model) {
@@ -27,6 +34,9 @@ public class AuthController {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public String userRegister(User user) {
+        user.setPassword(encoder.encode(user.getPassword()));
+        user.setActivated(true);
+        log.info(user.toString());
         userService.addUser(user);
         return "redirect:/login";
     }
@@ -42,6 +52,11 @@ public class AuthController {
     @ResponseStatus(HttpStatus.OK)
     public String userLogin(User user) {
         return "redirect:/home";
+    }
+
+    @GetMapping("/authorized")
+    public String userAuthorizedPage(Model model) {
+        return "authorized";
     }
 
 }

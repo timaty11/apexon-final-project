@@ -11,4 +11,9 @@ public class MainController {
         return "home";
     }
 
+    @GetMapping("/ad")
+    public String getAdPage() {
+        return "accessDenied";
+    }
+
 }

@@ -29,14 +29,23 @@ public class UserRestController {
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createUser(@RequestBody User user) {
+    public String createUser(@RequestBody User user) {
         userService.addUser(user);
+        return "created";
+    }
+
+    @PutMapping("/active/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public String activateUser(@PathVariable String id) {
+        userService.activateUser(id);
+        return "activated";
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void updateUser(@PathVariable String id, @RequestBody User user) {
+    public String updateUser(@PathVariable String id, @RequestBody User user) {
         userService.updateUser(id, user);
+        return "activated";
     }
 
     @DeleteMapping("/{id}")
