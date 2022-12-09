@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,8 +49,8 @@ public class UserController {
         return "userForm";
     }
 
-    @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable String id, @RequestBody User user) {
+    @PostMapping(value = "/update/{id}", consumes = "application/x-www-form-urlencoded")
+    public String updateUser(@PathVariable String id, User user) {
         userService.updateUser(id, user);
         return "redirect:/home";
     }
