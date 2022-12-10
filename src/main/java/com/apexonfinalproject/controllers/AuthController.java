@@ -31,9 +31,9 @@ public class AuthController {
     public String userRegisterForm(Model model) {
         User newUser = new User();
         newUser.setActivated(true);
-        List<Role> roles = roleService.getAllRoles();
+//        List<Role> roles = roleService.getAllRoles();
         model.addAttribute("user", newUser);
-        model.addAttribute("roles", roles);
+//        model.addAttribute("roles", roles);
         return "userForm";
     }
 

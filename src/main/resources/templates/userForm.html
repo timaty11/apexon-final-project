@@ -72,7 +72,7 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
+                <div th:if="${roles != null}" class="form-group row">
                     <label class="col-sm-4 col-form-label">Roles:</label>
                     <div class="col-sm-8">
                         <th:block th:each="role : ${roles}">
@@ -81,10 +81,21 @@
                             <br />
                         </th:block>
                     </div>
+
+                    <label class="col-sm-4 col-form-label">Activated:</label>
+                    <div class="col-sm-8">
+                        <th:block>
+                            <input class="m-2" type="checkbox" th:field="*{activated}"/>
+                            <br />
+                        </th:block>
+                    </div>
                 </div>
 
                 <div class="text-center">
-                    <button class="btn btn-primary">Sign up</button>
+                    <button th:if="${roles != null && user.getId() == null}" class="btn btn-primary">Create</button>
+                    <button th:if="${roles != null && user.getId() != null}" class="btn btn-primary">Update</button>
+                    <button th:if="${roles == null && user.getId() == null}" class="btn btn-primary">Sign up</button>
+                    <button th:if="${roles == null && user.getId() != null}" class="btn btn-primary">Update</button>
                     <button class="btn btn-secondary">Cancel</button>
                 </div>
             </div>

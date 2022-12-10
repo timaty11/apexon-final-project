@@ -7,6 +7,7 @@ import com.apexonfinalproject.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
@@ -28,11 +29,36 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
     @GetMapping("/")
     public String getControlPanelPage(Model model) {
         List<User> users = userService.getAllUsers();
         model.addAttribute("listUsers", users);
         return "controlPanel";
+    }
+
+    @GetMapping("/new")
+    public String getUserCreatePage(Authentication authentication, Model model) {
+        User user = new User();
+        model.addAttribute("user", user);
+
+        // If the authorized user make able to change roles
+        if (authentication.getAuthorities().toString().contains("ADMIN")) {
+            log.info("This is admin");
+            List<Role> roles = roleService.getAllRoles();
+            model.addAttribute("roles", roles);
+        }
+        return "userForm";
+    }
+
+    @PostMapping("/")
+    public String createUser(User user) {
+        user.setPassword(encoder.encode(user.getPassword()));
+        log.info(user.toString());
+        userService.addUser(user);
+        return "redirect:/users/";
     }
 
     @GetMapping("/edit/{id}")
@@ -53,6 +79,12 @@ public class UserController {
     public String updateUser(@PathVariable String id, User user) {
         userService.updateUser(id, user);
         return "redirect:/home";
+    }
+
+    @GetMapping(value = "/delete/{id}")
+    public String deleteUser(@PathVariable String id) {
+        userService.deleteUser(id);
+        return "redirect:/users/";
     }
 
 }
