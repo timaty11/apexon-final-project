@@ -54,7 +54,7 @@ public class WebAppSecurity extends WebSecurityConfigurerAdapter {
                 .formLogin()
 //                .loginPage("/auth/login")
                 .loginProcessingUrl("/auth/login")
-                .defaultSuccessUrl("/auth/authorized", true)
+                .defaultSuccessUrl("/home", true)
                 .failureUrl("/auth/login")
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"))
