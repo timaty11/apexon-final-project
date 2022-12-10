@@ -2,11 +2,13 @@ package com.apexonfinalproject.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
+
 import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -26,6 +28,10 @@ public class Role {
 
     @Column(length = 255, name = "role_description")
     private String roleDescription;
+
+//    @ManyToMany() and change backwards the joinColumns thing
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users;
 
     @Override
     public String toString() {
