@@ -11,6 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
+@ToString
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Table(name = "products")
@@ -28,11 +29,11 @@ public class Product {
 
     @Column(name = "product_price", nullable = false)
     @Builder.Default
-    private Double productPrice = 0.01;
+    private double productPrice = 0.01;
 
-    @Column(name = "product_amount", nullable = false)
+    @Column(name = "product_amount_available", nullable = false)
     @Builder.Default
-    private Integer productAmount = 0;
+    private int productAmount = 0;
 
     @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @JoinTable(
