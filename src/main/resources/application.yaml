@@ -4,7 +4,7 @@ spring:
       repositories:
         enabled: true
   datasource:
-    url: jdbc:postgresql://${POSTGRES_HOST:192.168.232.62}:32699/postgresdb
+    url: jdbc:postgresql://${POSTGRES_HOST:10.110.149.44}:32699/postgresdb
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
