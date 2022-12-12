@@ -15,7 +15,7 @@ spec:
         app: apexon-final-app
     spec:
       containers:
-        - image: bogomolapach/apexon-final-app
+        - image: bogomolapach/springboot-v1:latest
           imagePullPolicy: Always
           name: apexon-final-app
           ports:
