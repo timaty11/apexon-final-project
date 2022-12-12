@@ -1,7 +1,6 @@
 package com.apexonfinalproject.services;
 
 import com.apexonfinalproject.exceptions.UserNotFoundException;
-import com.apexonfinalproject.model.Category;
 import com.apexonfinalproject.model.Product;
 import com.apexonfinalproject.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -55,8 +54,8 @@ public class ProductService {
                 .id(id)
                 .productName(newProductData.getProductName() == null ? prevProductData.getProductName() : newProductData.getProductName())
                 .productDescription(newProductData.getProductDescription() == null ? prevProductData.getProductDescription() : newProductData.getProductDescription())
-                .productPrice(newProductData.getProductPrice() == null ? prevProductData.getProductPrice() : newProductData.getProductPrice())
-                .productAmount(newProductData.getProductAmount() == null ? prevProductData.getProductAmount() : newProductData.getProductAmount())
+                .productPrice(newProductData.getProductPrice() == 0 ? prevProductData.getProductPrice() : newProductData.getProductPrice())
+                .productAmount(newProductData.getProductAmount() == 0 ? prevProductData.getProductAmount() : newProductData.getProductAmount())
                 .categories(newProductData.getCategories() == null ? prevProductData.getCategories() : newProductData.getCategories())
                 .build()
         );

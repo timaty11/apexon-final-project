@@ -43,6 +43,7 @@ public class WebAppSecurity extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/home").permitAll()
                 .antMatchers("/auth/authorized").authenticated()
+                .antMatchers("/orders/*").authenticated()
                 .antMatchers("/admin").hasAnyAuthority("ADMIN")
                 .antMatchers("/users/*").hasAnyAuthority("ADMIN")
                 .antMatchers("/users/delete/*").hasAnyAuthority("ADMIN")
