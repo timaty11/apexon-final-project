@@ -23,7 +23,7 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
-    public void addOrder(CartInfo cartInfo) {
+    public Order addOrder(CartInfo cartInfo) {
         log.info(cartInfo.toString());
         String id = UUID.randomUUID().toString();
         log.info("Create order with id: '{}'", id);
@@ -36,14 +36,21 @@ public class OrderService {
         order.setCustomerName(cartInfo.getCustomerInfo().getName());
         order.setCustomerPhone(cartInfo.getCustomerInfo().getPhone());
         order.setCreateDate(new Date());
-        order.setOrderNum(1);
+        order.setOrderNum(getLastOrder().getOrderNum() + 1);
 
         orderRepository.save(order);
+        return order;
     }
 
     public List<Order> getAllOrders() {
         log.info("Get all orders");
         return orderRepository.findAll();
+    }
+
+    public Order getLastOrder() {
+        log.info("Get last order data");
+        List<Order> orders = orderRepository.findAll();
+        return orders.get(orders.size() - 1);
     }
 
     public Order getOrderById(String id) {
