@@ -33,16 +33,16 @@ public class RolesRepositoryTest {
 
     @Test
     public void testCreateFirstRole() {
-        Role roleAdmin = new Role("1", "ADMIN", "manage everything");
+        Role roleAdmin = new Role("1", "ADMIN", "manage everything", new HashSet<>());
         Role savedRole = roleRepository.save(roleAdmin);
         Assertions.assertThat(savedRole.getId()).isNotEmpty();
     }
 
     @Test
     public void testCreateUsersWithDifferentRoles() {
-        Role roleAdmin = new Role("1", "ADMIN", "manage everything");
-        Role roleManager = new Role("2", "MANAGER", "manage products data");
-        Role roleUser = new Role("3", "USER", "buy products");
+        Role roleAdmin = new Role("1", "ADMIN", "manage everything", new HashSet<>());
+        Role roleManager = new Role("2", "MANAGER", "manage products data", new HashSet<>());
+        Role roleUser = new Role("3", "USER", "buy products", new HashSet<>());
 
         roleRepository.save(roleAdmin);
         roleRepository.save(roleManager);

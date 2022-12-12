@@ -45,13 +45,13 @@ public class User {
     @Column(length = 255, name = "city")
     private String city;
 
-    @ManyToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
-    private Set<Role> roles = new HashSet<Role>();
+    private Set<Role> roles;
 
     @Column(name = "activated")
     @Builder.Default
@@ -59,6 +59,10 @@ public class User {
 
     public void addRole(Role role) {
         this.roles.add(role);
+    }
+
+    public void removeRole(Role role) {
+        this.roles.remove(role);
     }
 
 }
