@@ -1,6 +1,7 @@
 package com.apexonfinalproject.services;
 
 import com.apexonfinalproject.exceptions.UserNotFoundException;
+import com.apexonfinalproject.model.order.CartInfo;
 import com.apexonfinalproject.model.order.Order;
 import com.apexonfinalproject.repositories.OrderRepository;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,11 +23,21 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
-    public void addOrder(Order order) {
-        log.info(order.toString());
+    public void addOrder(CartInfo cartInfo) {
+        log.info(cartInfo.toString());
         String id = UUID.randomUUID().toString();
         log.info("Create order with id: '{}'", id);
+
+        Order order = new Order();
         order.setId(id);
+        order.setAmount(cartInfo.getAmountTotal());
+        order.setCustomerAddress(cartInfo.getCustomerInfo().getAddress());
+        order.setCustomerEmail(cartInfo.getCustomerInfo().getEmail());
+        order.setCustomerName(cartInfo.getCustomerInfo().getName());
+        order.setCustomerPhone(cartInfo.getCustomerInfo().getPhone());
+        order.setCreateDate(new Date());
+        order.setOrderNum(1);
+
         orderRepository.save(order);
     }
 

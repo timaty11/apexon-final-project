@@ -2,6 +2,7 @@ package com.apexonfinalproject.controllers;
 
 import com.apexonfinalproject.model.Product;
 import com.apexonfinalproject.model.order.CartInfo;
+import com.apexonfinalproject.model.order.CustomerInfo;
 import com.apexonfinalproject.model.order.ProductInfo;
 import com.apexonfinalproject.services.OrderService;
 import com.apexonfinalproject.services.ProductService;
@@ -66,15 +67,51 @@ public class OrderController {
         return "shoppingCart";
     }
 
-//    @PostMapping("/shopping-cart")
-//    public String shoppingCartUpdateProductQuantity(HttpServletRequest request, Model model) {
-//        CartInfo cartInfo = CartUtils.getCartInSession(request);
-//        cartInfo.updateQuantity();
-//    }
+    @PostMapping("/shopping-cart")
+    public String shoppingCartUpdateProductQuantity(HttpServletRequest request, Model model) {
+        CartInfo cartInfo = CartUtils.getCartInSession(request);
+        cartInfo.updateQuantity((CartInfo) model.getAttribute("cartForm"));
+
+        return "redirect:/orders/shopping-cart";
+    }
 
 //    @PostMapping("/shopping-cart/customer")
 //    public String shoppingCartSaveCustomer(HttpServletRequest request, Model model) {
 //
 //    }
+
+
+
+    @GetMapping("/confirm")
+    public String getOrderConfirmPage(HttpServletRequest request, Model model) {
+        CartInfo cartInfo = CartUtils.getCartInSession(request);
+        if (cartInfo == null || cartInfo.isEmpty()) {
+            return "redirect:/orders/shopping-cart";
+        } else if (cartInfo.getCustomerInfo() == null) {
+            CustomerInfo customerInfo = new CustomerInfo();
+            cartInfo.setCustomerInfo(new CustomerInfo());
+            model.addAttribute("customerInfo", customerInfo);
+        } else {
+            model.addAttribute("customerInfo", cartInfo.getCustomerInfo());
+        }
+        model.addAttribute("cartInfo", cartInfo);
+
+        return "orderConfirm";
+    }
+
+    @PostMapping("/confirm")
+    public String confirmOrderHandle(HttpServletRequest request, CustomerInfo customerInfo) {
+        CartInfo cartInfo = CartUtils.getCartInSession(request);
+        cartInfo.setCustomerInfo(customerInfo);
+        log.info("Cart info: " + cartInfo);
+        if (cartInfo == null || cartInfo.isEmpty()) {
+            return "redirect:/admin";
+        } else {
+            orderService.addOrder(cartInfo);
+        }
+
+        return "redirect:/home";
+//        return "redirect:/orders";
+    }
 
 }
