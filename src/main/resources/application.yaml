@@ -15,7 +15,7 @@ spring:
     baseline-on-migrate: true
     out-of-order: true
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: 3.231.53.51:9092
     consumer:
       group-id: myGroupId
 
