@@ -36,7 +36,7 @@ public class OrderService {
         order.setCustomerName(cartInfo.getCustomerInfo().getName());
         order.setCustomerPhone(cartInfo.getCustomerInfo().getPhone());
         order.setCreateDate(new Date());
-        order.setOrderNum(getLastOrder().getOrderNum() + 1);
+        order.setOrderNum(getLastOrder() + 1);
 
         orderRepository.save(order);
         return order;
@@ -47,10 +47,10 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public Order getLastOrder() {
+    public int getLastOrder() {
         log.info("Get last order data");
         List<Order> orders = orderRepository.findAll();
-        return orders.get(orders.size() - 1);
+        return orders.size();
     }
 
     public Order getOrderById(String id) {
