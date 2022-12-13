@@ -38,9 +38,7 @@ public class OrderController {
             product = productService.getProductById(productId);
         }
         if (product != null) {
-            log.info(product.toString());
             CartInfo cartInfo = CartUtils.getCartInSession(request);
-            log.info(cartInfo.toString());
             ProductInfo productInfo = new ProductInfo(product);
             log.info(productInfo.toString());
             cartInfo.addProduct(productInfo, 1);
@@ -73,16 +71,8 @@ public class OrderController {
     public String shoppingCartUpdateProductQuantity(HttpServletRequest request, Model model) {
         CartInfo cartInfo = CartUtils.getCartInSession(request);
         cartInfo.updateQuantity((CartInfo) model.getAttribute("cartForm"));
-
         return "redirect:/orders/shopping-cart";
     }
-
-//    @PostMapping("/shopping-cart/customer")
-//    public String shoppingCartSaveCustomer(HttpServletRequest request, Model model) {
-//
-//    }
-
-
 
     @GetMapping("/confirm")
     public String getOrderConfirmPage(HttpServletRequest request, Model model) {
@@ -113,7 +103,6 @@ public class OrderController {
         }
 
         return "redirect:/home";
-//        return "redirect:/orders";
     }
 
     @GetMapping("/")

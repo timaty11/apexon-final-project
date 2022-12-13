@@ -2,7 +2,6 @@ package com.apexonfinalproject.controllers;
 
 import com.apexonfinalproject.model.Role;
 import com.apexonfinalproject.services.RoleService;
-import com.apexonfinalproject.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,9 +17,6 @@ import java.util.List;
 @RequestMapping("/roles")
 @Slf4j
 public class RoleController {
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private RoleService roleService;

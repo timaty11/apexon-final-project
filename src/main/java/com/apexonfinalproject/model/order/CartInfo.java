@@ -2,7 +2,6 @@ package com.apexonfinalproject.model.order;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +32,6 @@ public class CartInfo {
         CartLineInfo lineInfo = this.findLineByCode(productInfo.getId());
 
         if (lineInfo == null) {
-            log.info("nema takogo govna");
             lineInfo = new CartLineInfo();
             lineInfo.setProductInfo(productInfo);
             lineInfo.setQuantity(0);

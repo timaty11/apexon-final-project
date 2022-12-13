@@ -1,7 +1,6 @@
 package com.apexonfinalproject.utils;
 
 import com.apexonfinalproject.model.order.CartInfo;
-
 import javax.servlet.http.HttpServletRequest;
 
 public class CartUtils {

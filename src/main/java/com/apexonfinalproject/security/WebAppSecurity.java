@@ -53,7 +53,6 @@ public class WebAppSecurity extends WebSecurityConfigurerAdapter {
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-//                .loginPage("/auth/login")
                 .loginProcessingUrl("/auth/login")
                 .defaultSuccessUrl("/home", true)
                 .failureUrl("/auth/login")

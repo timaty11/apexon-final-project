@@ -3,7 +3,6 @@ package com.apexonfinalproject.model.order;
 import com.apexonfinalproject.model.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-
 import javax.persistence.*;
 
 @Entity
