@@ -1,6 +1,7 @@
 package com.apexonfinalproject.controllers;
 
 import com.apexonfinalproject.model.Product;
+import com.apexonfinalproject.model.User;
 import com.apexonfinalproject.model.order.CartInfo;
 import com.apexonfinalproject.model.order.CustomerInfo;
 import com.apexonfinalproject.model.order.Order;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping("/orders")
@@ -118,6 +120,13 @@ public class OrderController {
 
         return "redirect:/home";
 //        return "redirect:/orders";
+    }
+
+    @GetMapping("/")
+    public String getOrderControlPanel(Model model) {
+        List<Order> orders = orderService.getAllOrders();
+        model.addAttribute("listOrders", orders);
+        return "orderControlPanel";
     }
 
 }
