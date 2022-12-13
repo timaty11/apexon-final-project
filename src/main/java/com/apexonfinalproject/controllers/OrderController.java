@@ -1,7 +1,6 @@
 package com.apexonfinalproject.controllers;
 
 import com.apexonfinalproject.model.Product;
-import com.apexonfinalproject.model.User;
 import com.apexonfinalproject.model.order.CartInfo;
 import com.apexonfinalproject.model.order.CustomerInfo;
 import com.apexonfinalproject.model.order.Order;
@@ -9,7 +8,6 @@ import com.apexonfinalproject.model.order.ProductInfo;
 import com.apexonfinalproject.services.OrderService;
 import com.apexonfinalproject.services.ProductService;
 import com.apexonfinalproject.utils.CartUtils;
-import com.apexonfinalproject.utils.KafkaProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,9 +30,6 @@ public class OrderController {
 
     @Autowired
     private ProductService productService;
-
-    @Autowired
-    KafkaProducer kafkaProducer;
 
     @GetMapping("/add-product/{productId}")
     public String addProductHandle(HttpServletRequest request, Model model, @PathVariable String productId) {
@@ -105,7 +100,6 @@ public class OrderController {
             return "redirect:/home";
         } else {
             Order order = orderService.addOrder(cartInfo);
-            kafkaProducer.sendMessage("Created order with id: " + order.getId() + " Order data: " + order);
         }
 
         return "redirect:/home";
