@@ -5,7 +5,7 @@ metadata:
     app: apexon-final-app
   name: springboot-v1
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: apexon-final-app
