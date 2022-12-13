@@ -30,15 +30,18 @@
                         <a class="nav-link" th:href="@{/home/}">Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/orders/}">Orders</a>
-                    </li>
-                    <li class="nav-item">
                         <form class="d-flex">
                             <a class="btn btn-outline-dark" th:href="@{/orders/shopping-cart/}">
                                 <i class="bi-cart-fill me-1"></i> Cart
                                 <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                             </a>
                         </form>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-main" th:href="@{/login}">Sign in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-secondary" th:href="@{/auth/register}">Sign up</a>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-secondary" th:href="@{/auth/logout}">Logout</a>
@@ -75,12 +78,13 @@
                     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                         <div th:each="product : ${listProducts}" class="col mb-5 product-card">
                             <div class="card h-100">
-                                <img th:src="@{/images/logo.jpg}" class="card-img-top">
+                                <img th:src="@{/images/product-photo.png}" class="card-img-top">
                                 <div class="card-body p-4">
                                     <div class="text-center">
                                         <h4 class="fw-bolder">[[${product.productName}]]</h4>
                                         <h5 class="fw-bolder">[[${product.productDescription}]]</h5>
                                         [[${product.productPrice}]]$
+                                        [[${product.categories}]]
                                     </div>
                                 </div>
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">

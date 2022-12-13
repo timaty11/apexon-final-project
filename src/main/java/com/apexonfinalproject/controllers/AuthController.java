@@ -39,7 +39,7 @@ public class AuthController {
         user.setActivated(true);
         log.info(user.toString());
         userService.addUser(user);
-        return "redirect:/login";
+        return "redirect:/home";
     }
 
     @GetMapping("/login")
