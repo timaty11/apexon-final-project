@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class RoleService {
 
-    private static String ERROR_ROLE_NOT_FOUND_TEMPLATE = "Role with id: %s not found!";
+    private static final String ERROR_ROLE_NOT_FOUND_TEMPLATE = "Role with id: %s not found!";
 
     @Autowired
     private RoleRepository roleRepository;

@@ -1,6 +1,5 @@
 package com.apexonfinalproject.model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import lombok.*;
@@ -25,7 +24,6 @@ public class Role {
     @Column(length = 255, name = "role_description")
     private String roleDescription;
 
-//    @ManyToMany() and change backwards the joinColumns thing
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 

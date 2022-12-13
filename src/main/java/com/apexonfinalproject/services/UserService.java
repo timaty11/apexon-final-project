@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserService {
 
-    private static String ERROR_USER_NOT_FOUND_TEMPLATE = "User with id: %s not found!";
+    private static final String ERROR_USER_NOT_FOUND_TEMPLATE = "User with id: %s not found!";
 
     private UserRepository userRepository;
 

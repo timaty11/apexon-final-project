@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -18,7 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class OrderService {
 
-    private static String  ERROR_ORDER_NOT_FOUND_TEMPLATE = "Order with id: %s not found!";
+    private static final String  ERROR_ORDER_NOT_FOUND_TEMPLATE = "Order with id: %s not found!";
 
     @Autowired
     private OrderRepository orderRepository;
